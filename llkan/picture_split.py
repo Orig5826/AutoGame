@@ -25,10 +25,8 @@ def cut_image(image, row=1, col=1):
         for j in range(0, col):
             box = (j*item_width, i*item_height, (j+1)*item_width,
                    (i+1)*item_height)
-            print(box)
             tmp = map(lambda x, y: x + y, box, box_offset)
             box = tuple(tmp)
-            print(box)
             box_list.append(box)
     image_list = [image.crop(box) for box in box_list]
     return image_list
@@ -45,7 +43,7 @@ def save_images(image_list):
 
 
 if __name__ == '__main__':
-    filename = "llk.bmp"
+    filename = "llk.png"
     image = get_image(filename)
     image_list = cut_image(image, 7, 12)
     save_images(image_list)
