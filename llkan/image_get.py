@@ -159,7 +159,7 @@ def images_to_matrix(images):
 
     # 记录独立的图像
     image_record = []
-    item_matirx = numpy.zeros((row_max, col_max))
+    item_matirx = numpy.zeros((row_max, col_max), int)
     for row in range(row_max):
         for col in range(col_max):
             # 当前图像
