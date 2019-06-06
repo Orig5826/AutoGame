@@ -105,16 +105,16 @@ def classify_pHash(image1, image2):
     return hammming_distance(hash1, hash2)
 
 
-def image_contrase(image1, image2, hashmode='P'):
+def image_contrast(image1, image2, hashmode='P'):
     if hashmode == 'A':
         hamm_dis = classify_aHash(image1, image2)
-        print('classify_aHash: ', hamm_dis)
+        # print('classify_aHash: ', hamm_dis)
         if hamm_dis > 10:
             return False
         return True
     elif hashmode == 'P':
         hamm_dis = classify_pHash(image1, image2)
-        print('classify_pHash: ', hamm_dis)
+        # print('classify_pHash: ', hamm_dis)
         if hamm_dis > 10:
             return False
         return True
@@ -136,9 +136,9 @@ def contrast_test():
     # cv2.imshow('image_2', img2)
     # cv2.imshow('image_3', img3)
 
-    result = image_contrase(img1, img2)
+    result = image_contrast(img1, img2)
     print(result)
-    result = image_contrase(img1, img3)
+    result = image_contrast(img1, img3)
     print(result)
 
     # 延时毫秒数，0表示无穷大(相当于暂停)

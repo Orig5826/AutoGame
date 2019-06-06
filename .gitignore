@@ -1,2 +1,9 @@
 
+# vscode
+.vscode/
+
+# python
+__pycache__/
+
+# temporary
 img/
