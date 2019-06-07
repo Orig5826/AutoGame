@@ -180,7 +180,7 @@ def images_to_matrix(images):
                     id = len(image_record)
                     item_matirx[row][col] = id
 
-    print(item_matirx)
+    # print(item_matirx)
     return item_matirx
 
 
