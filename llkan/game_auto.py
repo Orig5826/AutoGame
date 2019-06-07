@@ -77,9 +77,9 @@ if __name__ == '__main__':
             print(matrix_ex, end='\n\n')
             one_step_ex = connect_find(matrix_ex)
             if not one_step_ex:
+                # error_exit('----- 当前已没有可选择的路径 -----')
                 print('----- 当前已没有可选择的路径 -----')
                 time.sleep(0.25)
-                exit(-1)
                 break
 
             # 执行实际操作

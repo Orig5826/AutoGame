@@ -19,7 +19,7 @@ import os
 from image_contrast import image_contrast
 
 # 调试开关
-DEBUG_SWITCH = 1    # 1.开启 0.关闭
+DEBUG_SWITCH = 0    # 1.开启 0.关闭
 
 
 """
