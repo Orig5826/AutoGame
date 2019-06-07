@@ -15,14 +15,14 @@ def connect_zero_corner(matrix, pos_src, pos_des):
         col_max = max(s_c, d_c)
 
         if numpy.all(matrix[s_r, col_min+1:col_max] == 0):
-            return (s_r, s_c, d_r, d_c)
+            return True
     # 纵向判断
     if s_c == d_c:
         row_min = min(s_r, d_r)
         row_max = max(s_r, d_r)
 
         if numpy.all(matrix[row_min+1:row_max, s_c] == 0):
-            return (s_r, s_c, d_r, d_c)
+            return True
 
     return False
 
@@ -45,7 +45,7 @@ def connect_one_corner(matrix, pos_src, pos_des):
 
         if numpy.all(matrix[s_r, col_min+1:col_max] == 0) and\
                 numpy.all(matrix[row_min+1:row_max, d_c] == 0):
-            return (s_r, s_c, d_r, d_c)
+            return True
     if matrix[d_r][s_c] == 0:
         col_min = min(s_c, d_c)
         col_max = max(s_c, d_c)
@@ -54,7 +54,7 @@ def connect_one_corner(matrix, pos_src, pos_des):
 
         if numpy.all(matrix[d_r, col_min+1:col_max] == 0) and\
                 numpy.all(matrix[row_min+1:row_max, s_c] == 0):
-            return (s_r, s_c, d_r, d_c)
+            return True
 
     return False
 
@@ -76,7 +76,7 @@ def connect_two_corner(matrix, pos_src, pos_des):
             if matrix[r][s_c] == 0:
                 pos = connect_one_corner(matrix, (r, s_c), pos_des)
                 if pos is not False:
-                    return (s_r, s_c, d_r, d_c)
+                    return True
             else:
                 break
     # 向下
@@ -85,7 +85,7 @@ def connect_two_corner(matrix, pos_src, pos_des):
             if matrix[r][s_c] == 0:
                 pos = connect_one_corner(matrix, (r, s_c), pos_des)
                 if pos is not False:
-                    return (s_r, s_c, d_r, d_c)
+                    return True
             else:
                 break
     # 向左
@@ -94,7 +94,7 @@ def connect_two_corner(matrix, pos_src, pos_des):
             if matrix[s_r][c] == 0:
                 pos = connect_one_corner(matrix, (s_r, c), pos_des)
                 if pos is not False:
-                    return (s_r, s_c, d_r, d_c)
+                    return True
             else:
                 break
     # 向右
@@ -103,7 +103,7 @@ def connect_two_corner(matrix, pos_src, pos_des):
             if matrix[s_r][c] == 0:
                 pos = connect_one_corner(matrix, (s_r, c), pos_des)
                 if pos is not False:
-                    return (s_r, s_c, d_r, d_c)
+                    return True
             else:
                 break
 
@@ -130,47 +130,19 @@ def connect_find(matrix):
                 # print('{} -> {}'.format(pos_src, pos_des))
 
                 # 直线连通的判断
-                pos = connect_zero_corner(matrix, pos_src, pos_des)
-                if pos is not False:
-                    return pos
-
-    for id in range(1, max_id + 1):
-        # 获取相当元素位置信息
-        pos = numpy.where(matrix == id)
-        position = map(lambda x, y: (x, y), pos[0], pos[1])
-        position = list(position)
-
-        # 循环判断两坐标点是否连通
-        pos_count = len(position)
-        for i in range(pos_count):
-            for j in range(i + 1, pos_count):
-                pos_src = position[i]
-                pos_des = position[j]
-                # print('{} -> {}'.format(pos_src, pos_des))
+                ret = connect_zero_corner(matrix, pos_src, pos_des)
+                if ret:
+                    return pos_src[0], pos_src[1], pos_des[0], pos_des[1]
 
                 # 有一个拐角连通的判断
-                pos = connect_one_corner(matrix, pos_src, pos_des)
-                if pos is not False:
-                    return pos
-
-    for id in range(1, max_id + 1):
-        # 获取相当元素位置信息
-        pos = numpy.where(matrix == id)
-        position = map(lambda x, y: (x, y), pos[0], pos[1])
-        position = list(position)
-
-        # 循环判断两坐标点是否连通
-        pos_count = len(position)
-        for i in range(pos_count):
-            for j in range(i + 1, pos_count):
-                pos_src = position[i]
-                pos_des = position[j]
-                # print('{} -> {}'.format(pos_src, pos_des))
+                ret = connect_one_corner(matrix, pos_src, pos_des)
+                if ret:
+                    return pos_src[0], pos_src[1], pos_des[0], pos_des[1]
 
                 # 有两个拐角连通的判断
-                pos = connect_two_corner(matrix, pos_src, pos_des)
-                if pos is not False:
-                    return pos
+                ret = connect_two_corner(matrix, pos_src, pos_des)
+                if ret:
+                    return pos_src[0], pos_src[1], pos_des[0], pos_des[1]
 
     return False
 

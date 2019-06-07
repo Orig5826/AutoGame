@@ -115,11 +115,11 @@ def game_area_image_to_item_images(gram_area_image):
                                         item_left, item_top,
                                         item_right, item_bottom)
 
-            # """
+            """
             if not os.path.exists('./img'):
                 os.mkdir('./img')
             item_image.save('./img/{}.png'.format(row*col_max + col), 'PNG')
-            # """
+            """
             item_images[row][col] = item_image
 
     return item_images
