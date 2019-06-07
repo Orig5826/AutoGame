@@ -1,5 +1,8 @@
 """
-    游戏参数相关说明：
+    # 调试参数
+    DEBUG_SWITCH  # 1.开启 0.关闭
+
+    # 游戏参数相关说明：
     item_count 项目数
     item_size 每项尺寸
     area_start 游戏区左上角相对于窗口左上角的坐标
@@ -15,6 +18,10 @@ import os
 
 from image_contrast import image_contrast
 
+# 调试开关
+DEBUG_SWITCH = 0    # 1.开启 0.关闭
+
+
 """
 # ---------- 连连看 v4.1 初级 ----------
 # 项目数：每行，每列
@@ -23,7 +30,7 @@ item_count = (12, 7)
 item_size = (40, 50)
 # 游戏区左上角相对于窗口左上角的坐标：left，top
 area_start = (164, 162)
-"""
+
 # ---------- 连连看 v4.1 特高 ----------
 # 项目数：每行，每列
 item_count = (18, 10)
@@ -31,6 +38,15 @@ item_count = (18, 10)
 item_size = (40, 50)
 # 游戏区左上角相对于窗口左上角的坐标：left，top
 area_start = (41, 64)
+"""
+
+# ---------- QQ游戏 - 连连看角色版 ----------
+# 项目数：每行，每列
+item_count = (19, 11)
+# 每项尺寸：宽，高
+item_size = (31, 35)
+# 游戏区左上角相对于窗口左上角的坐标：left，top
+area_start = (14, 180)
 
 
 def error_exit(des):
@@ -101,8 +117,12 @@ def grab_game_area(left, top, right, bottom):
 
 
 def get_item_image(image, left, top, right, bottom):
-    # 去掉边缘，防止因为边界花边造成对判断的影响
-    item_image = image.crop((left + 3, top + 3, right - 3, bottom - 3))
+    if DEBUG_SWITCH == 1:
+        # 调试阶段，可以恢复为全部，方便调试
+        item_image = image.crop((left, top, right, bottom))
+    else:
+        # 去掉边缘，防止因为边界花边造成对判断的影响
+        item_image = image.crop((left + 3, top + 3, right - 3, bottom - 3))
     # item_image.show()
     return item_image
 
@@ -128,11 +148,12 @@ def game_area_image_to_item_images(gram_area_image):
                                         item_left, item_top,
                                         item_right, item_bottom)
 
-            """
-            if not os.path.exists('./img'):
-                os.mkdir('./img')
-            item_image.save('./img/{}.png'.format(row*col_max + col), 'PNG')
-            """
+            if DEBUG_SWITCH == 1:
+                if not os.path.exists('./img'):
+                    os.mkdir('./img')
+                item_image.save(
+                    './img/{}.png'.format(row*col_max + col), 'PNG')
+
             item_images[row][col] = item_image
 
     return item_images
@@ -152,7 +173,8 @@ def is_empty_item(image):
 
     for color in center.getdata():
         # 因为当前背景被我配置为了纯黑色
-        if color != (0, 0, 0):
+        # if color != (0, 0, 0):
+        if color != (48, 76, 112):
             return False
     return True
 

@@ -1,4 +1,7 @@
 """
+    # 游戏参数相关说明：
+    MATRIX_EXTEND  # 矩阵扩展 1.开启 0.关闭
+
     该自动连连看脚本
     默认是针对不随着进度变化的界面操作的（省时间）
     若需要针对动态游戏，则将@1处相关代码去注释即可
@@ -7,6 +10,13 @@ from image_get import *
 from graph_path import connect_find
 import pyautogui
 import time
+
+
+"""
+# 1. 练练看v4.1 需要开启
+# 2. QQ游戏 - 连连看角色版 不需要开启
+"""
+MATRIX_EXTEND = 0   # 矩阵扩展 1.开启 0.关闭
 
 
 def auto_game_init(windows_title):
@@ -46,15 +56,18 @@ def execute_one_step(one_step, game_area,
 
 
 if __name__ == '__main__':
-    game_area = auto_game_init('连连看 v4.1')
+    game_area = auto_game_init('QQ游戏 - 连连看角色版')
     while True:
         matrix = get_game_matrix(game_area)
 
         # 扩展外围
-        col_max = item_count[0]
-        row_max = item_count[1]
-        matrix_ex = numpy.zeros((row_max + 2, col_max + 2), int)
-        matrix_ex[1:(row_max + 1), 1:(col_max + 1)] = matrix
+        if MATRIX_EXTEND == 1:
+            col_max = item_count[0]
+            row_max = item_count[1]
+            matrix_ex = numpy.zeros((row_max + 2, col_max + 2), int)
+            matrix_ex[1:(row_max + 1), 1:(col_max + 1)] = matrix
+        else:
+            matrix_ex = matrix
 
         while True:
             # 寻找可以连通的图标
@@ -66,11 +79,15 @@ if __name__ == '__main__':
             if not one_step_ex:
                 print('----- 当前已没有可选择的路径 -----')
                 time.sleep(0.25)
+                exit(-1)
                 break
-                # exit(-1)
 
             # 执行实际操作
-            one_step = tuple(map(lambda x: x - 1, one_step_ex))
+            if MATRIX_EXTEND == 1:
+                one_step = tuple(map(lambda x: x - 1, one_step_ex))
+            else:
+                one_step = one_step_ex
+
             # 执行该步骤
             execute_one_step(
                 one_step, game_area, *item_size)
@@ -86,6 +103,5 @@ if __name__ == '__main__':
 
             # @1 执行成功一步之后，延时一会儿
             # 重新截图，方便处理动态变化的图像
-
             # time.sleep(0.25)
             # break
