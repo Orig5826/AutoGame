@@ -115,7 +115,7 @@ def image_contrast(image1, image2, hashmode='P'):
     elif hashmode == 'P':
         hamm_dis = classify_pHash(image1, image2)
         # print('classify_pHash: ', hamm_dis)
-        if hamm_dis > 6:
+        if hamm_dis > 3:
             return False
         return True
 

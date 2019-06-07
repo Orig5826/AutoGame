@@ -1,4 +1,8 @@
-
+"""
+    该自动连连看脚本
+    默认是针对不随着进度变化的界面操作的（省时间）
+    若需要针对动态游戏，则将@1处相关代码去注释即可
+"""
 from image_get import *
 from graph_path import connect_find
 import pyautogui
@@ -60,7 +64,10 @@ if __name__ == '__main__':
             print(matrix_ex, end='\n\n')
             one_step_ex = connect_find(matrix_ex)
             if not one_step_ex:
-                error_exit('----- 已经没有可选择的路径 -----')
+                print('----- 当前已没有可选择的路径 -----')
+                time.sleep(0.25)
+                break
+                # exit(-1)
 
             # 执行实际操作
             one_step = tuple(map(lambda x: x - 1, one_step_ex))
@@ -77,8 +84,8 @@ if __name__ == '__main__':
                 error_exit('----- 通关完成 -----')
                 exit(0)
 
-            # 执行成功一步之后，延时一会儿
-            # 重新截图
-            # 方便处理动态变化的图像
-            time.sleep(0.25)
-            break
+            # @1 执行成功一步之后，延时一会儿
+            # 重新截图，方便处理动态变化的图像
+
+            # time.sleep(0.25)
+            # break

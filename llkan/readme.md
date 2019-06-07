@@ -1,6 +1,34 @@
-# image contrast 用到的相关算法说明
+# 自动连连看 —— 让你感受连连看不一样的爽玩法
 `2019.05.22 by jianfeng`
 
+## 程序说明
+### 用到的库
+- numpy
+- pyautogui
+- pillow(py3)
+- pywin32
+
+### 程序文件
+- auto主脚本
+    - [game_auto.py](./game_auto.py)
+    > 自动游戏运行脚本
+    - [graph_path.py](./graph_path.py)
+    > 路径识别算法
+    - [image_contrast.py](./image_contrast.py)
+    > 图像对比
+    - [image_get.py](./image_get.py)
+    > 图像获取，分割等
+- 辅助脚本
+    - [pyautogui_test.py](./pyautogui_test.py)
+    > 模块测试 + 坐标获取 + RGB采集
+    - [picture_split.py](./picture_split.py)
+    > 图像分割
+
+### 相关参数
+- 参考image_get.py中的具体参数修改方式
+
+---------------------------------------------
+## image contrast 用到的相关算法说明
 ### 常用对比方式
 - 感知哈希算法（常用）
     1. 将图像大小归一化(例如8*8) 

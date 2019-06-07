@@ -1,4 +1,9 @@
-
+"""
+    游戏参数相关说明：
+    item_count 项目数
+    item_size 每项尺寸
+    area_start 游戏区左上角相对于窗口左上角的坐标
+"""
 import win32api
 import win32gui
 import win32con
@@ -10,14 +15,22 @@ import os
 
 from image_contrast import image_contrast
 
-
-# ----------------------------------------
+"""
+# ---------- 连连看 v4.1 初级 ----------
 # 项目数：每行，每列
 item_count = (12, 7)
 # 每项尺寸：宽，高
 item_size = (40, 50)
 # 游戏区左上角相对于窗口左上角的坐标：left，top
 area_start = (164, 162)
+"""
+# ---------- 连连看 v4.1 特高 ----------
+# 项目数：每行，每列
+item_count = (18, 10)
+# 每项尺寸：宽，高
+item_size = (40, 50)
+# 游戏区左上角相对于窗口左上角的坐标：left，top
+area_start = (41, 64)
 
 
 def error_exit(des):
