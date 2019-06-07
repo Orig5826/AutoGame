@@ -43,7 +43,8 @@ def save_images(image_list):
 
 
 if __name__ == '__main__':
-    filename = "llk.png"
+    filename = "llk_Q.png"
     image = get_image(filename)
-    image_list = cut_image(image, 7, 12)
+    # image_list = cut_image(image, 7, 12)
+    image_list = cut_image(image, 11, 19)
     save_images(image_list)

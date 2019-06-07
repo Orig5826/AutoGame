@@ -97,11 +97,13 @@ if __name__ == '__main__':
             matrix_ex[from_row][from_col] = 0
             matrix_ex[to_row][to_col] = 0
 
+            print('({},{}) -> ({},{})'.format(from_row, from_col,
+                                              to_row, to_col))
             if numpy.all(matrix_ex == 0):
                 error_exit('----- 通关完成 -----')
                 exit(0)
 
             # @1 执行成功一步之后，延时一会儿
             # 重新截图，方便处理动态变化的图像
-            # time.sleep(0.25)
+            # time.sleep(0.025)
             # break

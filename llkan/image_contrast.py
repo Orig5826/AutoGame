@@ -108,22 +108,22 @@ def classify_pHash(image1, image2):
 def image_contrast(image1, image2, hashmode='P'):
     if hashmode == 'A':
         hamm_dis = classify_aHash(image1, image2)
-        # print('classify_aHash: ', hamm_dis)
+        print('classify_aHash: ', hamm_dis)
         if hamm_dis > 10:
             return False
         return True
     elif hashmode == 'P':
         hamm_dis = classify_pHash(image1, image2)
-        # print('classify_pHash: ', hamm_dis)
+        print('classify_pHash: ', hamm_dis)
         if hamm_dis > 3:
             return False
         return True
 
 
 def contrast_test():
-    picture1 = './img/4.png'
-    picture2 = './img/36.png'
-    picture3 = './img/14.png'
+    picture1 = './img/9.png'
+    picture2 = './img/23.png'
+    picture3 = './img/58.png'
 
     # 直接获取灰度图
     # img1 = cv2.imread(picture1, 0)

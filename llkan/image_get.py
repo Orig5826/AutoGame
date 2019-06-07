@@ -19,7 +19,7 @@ import os
 from image_contrast import image_contrast
 
 # 调试开关
-DEBUG_SWITCH = 0    # 1.开启 0.关闭
+DEBUG_SWITCH = 1    # 1.开启 0.关闭
 
 
 """
@@ -46,7 +46,7 @@ item_count = (19, 11)
 # 每项尺寸：宽，高
 item_size = (31, 35)
 # 游戏区左上角相对于窗口左上角的坐标：left，top
-area_start = (14, 180)
+area_start = (14, 181)
 
 
 def error_exit(des):
@@ -112,6 +112,8 @@ def get_game_area(win_left, win_top):
 
 def grab_game_area(left, top, right, bottom):
     game_area_image = PIL.ImageGrab.grab((left, top, right, bottom))
+    if DEBUG_SWITCH == 1:
+        game_area_image.save('llk_.png', 'PNG')
     # game_area_image.show()
     return game_area_image
 
@@ -122,7 +124,7 @@ def get_item_image(image, left, top, right, bottom):
         item_image = image.crop((left, top, right, bottom))
     else:
         # 去掉边缘，防止因为边界花边造成对判断的影响
-        item_image = image.crop((left + 3, top + 3, right - 3, bottom - 3))
+        item_image = image.crop((left + 2, top + 2, right - 2, bottom - 2))
     # item_image.show()
     return item_image
 
@@ -152,7 +154,7 @@ def game_area_image_to_item_images(gram_area_image):
                 if not os.path.exists('./img'):
                     os.mkdir('./img')
                 item_image.save(
-                    './img/{}.png'.format(row*col_max + col), 'PNG')
+                    './img/{}.png'.format(row*col_max + col + 1), 'PNG')
 
             item_images[row][col] = item_image
 
